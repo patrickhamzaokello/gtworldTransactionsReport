@@ -33,3 +33,13 @@
 2024-10-31 12:28:58,214 - __main__ - INFO - Starting analysis for year 2023
 2024-10-31 12:28:59,990 - __main__ - INFO - Analysis results for 2023 saved successfully
 2024-10-31 12:28:59,990 - __main__ - INFO - Analysis for year 2023 completed successfully
+2024-10-31 14:54:16,716 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 14:54:20,562 - __main__ - ERROR - Error in analysis for year 2023: Error in business performance analysis: 'TransactionAnalyzer' object has no attribute 'monthly_targets'
+2024-10-31 14:55:33,592 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 14:55:38,942 - __main__ - ERROR - Error in analysis for year 2023: keys must be str, int, float, bool or None, not tuple
+2024-10-31 14:57:05,298 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 14:57:07,549 - __main__ - INFO - Analysis results for 2023 saved successfully
+2024-10-31 14:57:07,550 - __main__ - INFO - Analysis for year 2023 completed successfully
+2024-10-31 15:04:02,257 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 15:04:04,744 - __main__ - INFO - Analysis results for 2023 saved successfully
+2024-10-31 15:04:04,745 - __main__ - INFO - Analysis for year 2023 completed successfully

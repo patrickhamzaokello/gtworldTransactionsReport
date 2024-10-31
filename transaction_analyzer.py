@@ -78,6 +78,213 @@ class TransactionAnalyzer:
         except Exception as e:
             self.logger.error(f"Error loading data for year {year}: {str(e)}")
             raise
+    def business_performance_analysis(self, df: pd.DataFrame) -> Dict:
+        """
+        Step 1: Analyze monthly and quarterly business performance
+        """
+        try:
+            # Monthly analysis
+            monthly_metrics = df.groupby('u_month_year').agg({
+                'TransID': 'count',
+                'Amount': ['sum', 'mean', 'std'],
+                'Status': lambda x: (x == 'SUCCESS').mean() * 100
+            })
+            monthly_metrics.columns = ['transaction_count', 'total_value', 
+                                     'avg_value', 'value_std', 'success_rate']
+            
+            # Calculate growth rates
+            monthly_metrics['value_growth'] = monthly_metrics['total_value'].pct_change() * 100
+            monthly_metrics['volume_growth'] = monthly_metrics['transaction_count'].pct_change() * 100
+            
+            # Quarterly analysis
+            quarterly_metrics = df.groupby('u_quarter_year').agg({
+                'TransID': 'count',
+                'Amount': ['sum', 'mean'],
+                'Status': lambda x: (x == 'SUCCESS').mean() * 100
+            })
+            
+            return {
+                'monthly_metrics': monthly_metrics.to_dict(),
+                'quarterly_metrics': quarterly_metrics.to_dict(),
+                'overall_growth': {
+                    'value_growth': monthly_metrics['value_growth'].mean(),
+                    'volume_growth': monthly_metrics['volume_growth'].mean()
+                }
+            }
+        except Exception as e:
+            raise Exception(f"Error in business performance analysis: {str(e)}")
+
+    def customer_segmentation_analysis(self, df: pd.DataFrame) -> Dict:
+        """
+        Step 2: Analyze customer segments and behavior
+        """
+        try:
+            # Customer transaction metrics
+            customer_metrics = df.groupby('CustomerAccount').agg({
+                'TransID': 'count',
+                'Amount': ['sum', 'mean'],
+                'Status': lambda x: (x == 'SUCCESS').mean() * 100
+            })
+            
+            # Segment customers by transaction value
+            total_value_by_customer = df.groupby('CustomerAccount')['Amount'].sum()
+            value_segments = pd.qcut(total_value_by_customer, q=4, labels=[
+                'Low Value', 'Medium Value', 'High Value', 'Premium'
+            ])
+            
+            # Transaction frequency segmentation
+            frequency_by_customer = df.groupby('CustomerAccount').size()
+            frequency_segments = pd.qcut(frequency_by_customer, q=4, labels=[
+                'Low Frequency', 'Medium Frequency', 'High Frequency', 'Very High Frequency'
+            ])
+            
+            # Customer activity patterns
+            customer_patterns = df.groupby('CustomerAccount').agg({
+                'is_weekend': 'mean',
+                'hour_of_day': 'median',
+                'TransType': lambda x: x.mode()[0] if not x.empty else None
+            })
+            
+            return {
+                'customer_metrics': customer_metrics.to_dict(),
+                'value_segmentation': value_segments.value_counts().to_dict(),
+                'frequency_segmentation': frequency_segments.value_counts().to_dict(),
+                'activity_patterns': customer_patterns.to_dict(),
+                'top_customers': total_value_by_customer.nlargest(10).to_dict()
+            }
+        except Exception as e:
+            raise Exception(f"Error in customer segmentation analysis: {str(e)}")
+
+    def transaction_pattern_analysis(self, df: pd.DataFrame) -> Dict:
+        """
+        Step 3: Analyze transaction patterns and trends
+        """
+        try:
+            # Hourly patterns
+            hourly_patterns = df.groupby('hour_of_day').agg({
+                'TransID': 'count',
+                'Amount': ['sum', 'mean'],
+                'Status': lambda x: (x == 'SUCCESS').mean() * 100
+            })
+            
+            # Day of week patterns
+            dow_patterns = df.groupby('day_of_week_name').agg({
+                'TransID': 'count',
+                'Amount': ['sum', 'mean'],
+                'Status': lambda x: (x == 'SUCCESS').mean() * 100
+            })
+            
+            # Transaction type distribution
+            type_distribution = df.groupby('TransType').agg({
+                'TransID': 'count',
+                'Amount': ['sum', 'mean'],
+                'Status': lambda x: (x == 'SUCCESS').mean() * 100
+            })
+            
+            # Peak transaction periods
+            peak_hours = hourly_patterns['TransID']['count'].nlargest(3)
+            peak_days = dow_patterns['TransID']['count'].nlargest(3)
+            
+            return {
+                'hourly_patterns': hourly_patterns.to_dict(),
+                'daily_patterns': dow_patterns.to_dict(),
+                'type_distribution': type_distribution.to_dict(),
+                'peak_periods': {
+                    'peak_hours': peak_hours.to_dict(),
+                    'peak_days': peak_days.to_dict()
+                }
+            }
+        except Exception as e:
+            raise Exception(f"Error in transaction pattern analysis: {str(e)}")
+
+    def performance_metrics_analysis(self, df: pd.DataFrame) -> Dict:
+        """
+        Step 4: Analyze key performance metrics and trends
+        """
+        try:
+            # Success rate metrics
+            success_metrics = df.groupby(['TransType', 'AccountType']).agg({
+                'Status': lambda x: (x == 'SUCCESS').mean() * 100
+            })
+            
+            # Value distribution metrics
+            value_metrics = df.groupby(['TransType', 'AccountType']).agg({
+                'Amount': ['count', 'sum', 'mean', 'std']
+            })
+            
+            # Time-based performance
+            hourly_success = df.groupby('hour_of_day').agg({
+                'Status': lambda x: (x == 'SUCCESS').mean() * 100
+            })
+            
+            # Calculate performance scores
+            performance_scores = {}
+            for trans_type in df['TransType'].unique():
+                type_data = df[df['TransType'] == trans_type]
+                performance_scores[trans_type] = {
+                    'success_rate': (type_data['Status'] == 'SUCCESS').mean() * 100,
+                    'avg_value': type_data['Amount'].mean(),
+                    'volume': len(type_data),
+                    'value_stability': type_data['Amount'].std() / type_data['Amount'].mean()
+                }
+            
+            return {
+                'success_metrics': success_metrics.to_dict(),
+                'value_metrics': value_metrics.to_dict(),
+                'hourly_performance': hourly_success.to_dict(),
+                'performance_scores': performance_scores
+            }
+        except Exception as e:
+            raise Exception(f"Error in performance metrics analysis: {str(e)}")
+
+    def generate_visualizations(self, df: pd.DataFrame, output_dir: str):
+        """
+        Generate visualizations for the analysis
+        """
+        try:
+            # 1. Monthly Transaction Trends
+            plt.figure(figsize=(12, 6))
+            monthly_data = df.groupby('u_month_year').agg({
+                'TransID': 'count',
+                'Amount': 'sum'
+            })
+            ax = monthly_data.plot(kind='line', marker='o')
+            plt.title('Monthly Transaction Trends')
+            plt.tight_layout()
+            plt.savefig(f'{output_dir}/monthly_trends.png')
+            plt.close()
+            
+            # 2. Customer Segment Distribution
+            plt.figure(figsize=(10, 6))
+            total_value_by_customer = df.groupby('CustomerAccount')['Amount'].sum()
+            value_segments = pd.qcut(total_value_by_customer, q=4, labels=[
+                'Low Value', 'Medium Value', 'High Value', 'Premium'
+            ])
+            value_segments.value_counts().plot(kind='pie', autopct='%1.1f%%')
+            plt.title('Customer Value Segmentation')
+            plt.tight_layout()
+            plt.savefig(f'{output_dir}/customer_segments.png')
+            plt.close()
+            
+            # 3. Hourly Transaction Heatmap
+            plt.figure(figsize=(12, 8))
+            hourly_dow = pd.pivot_table(
+                df, 
+                values='TransID',
+                index='hour_of_day',
+                columns='day_of_week_name',
+                aggfunc='count',
+                fill_value=0
+            )
+            sns.heatmap(hourly_dow, cmap='YlOrRd', annot=True, fmt='g')
+            plt.title('Transaction Volume Heatmap')
+            plt.tight_layout()
+            plt.savefig(f'{output_dir}/hourly_heatmap.png')
+            plt.close()
+            
+        except Exception as e:
+            raise Exception(f"Error generating visualizations: {str(e)}")
+
 
     def currency_forex_analysis(self, df: pd.DataFrame) -> Dict:
         """
@@ -273,12 +480,26 @@ class TransactionAnalyzer:
         Generate a comprehensive analysis report
         """
         report = {
+            'business_performance': self.business_performance_analysis(df),
+            'customer_segmentation': self.customer_segmentation_analysis(df),
+            'transaction_patterns': self.transaction_pattern_analysis(df),
+            'performance_metrics': self.performance_metrics_analysis(df),
+            'analysis_timestamp': datetime.now().isoformat(),
             'currency_forex_analysis': self.currency_forex_analysis(df),
             'account_type_analysis': self.account_type_analysis(df),
             'risk_patterns': self.risk_pattern_analysis(df),
             'operational_efficiency': self.operational_efficiency_analysis(df),
             'weekend_comparison': self.weekend_weekday_comparison(df),
-            'month_end_patterns': self.month_end_analysis(df)
+            'month_end_patterns': self.month_end_analysis(df),
+            'data_summary': {
+                'total_transactions': len(df),
+                'date_range': {
+                    'start': df['PaymentDate'].min().isoformat(),
+                    'end': df['PaymentDate'].max().isoformat()
+                },
+                'total_value': float(df['Amount'].sum()),
+                'overall_success_rate': float((df['Status'] == 'SUCCESS').mean() * 100)
+            }
         }
         
         return report
@@ -316,9 +537,22 @@ class TransactionAnalyzer:
         output_dir = self.config['output']['directory']
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         
+        # Convert results to JSON-serializable format
+        def convert_keys(obj):
+            if isinstance(obj, dict):
+                return {
+                    str(k) if isinstance(k, tuple) else k: convert_keys(v)
+                    for k, v in obj.items()
+                }
+            elif isinstance(obj, list):
+                return [convert_keys(item) for item in obj]
+            return obj
+        
+        json_safe_results = convert_keys(results)
+        
         # Save JSON results
         with open(f'{output_dir}/analysis_results_{year}.json', 'w') as f:
-            json.dump(results, f, indent=4, default=str)
+            json.dump(json_safe_results, f, indent=4, default=str)
             
         self.logger.info(f"Analysis results for {year} saved successfully")
 

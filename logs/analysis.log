@@ -1,0 +1,35 @@
+2024-10-31 11:02:48,311 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 11:02:50,169 - __main__ - ERROR - Error in analysis for year 2023: name 'generate_full_analysis_report' is not defined
+2024-10-31 11:20:26,264 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 11:20:27,241 - __main__ - ERROR - Error in analysis for year 2023: TransactionAnalyzer.generate_full_analysis_report() takes 1 positional argument but 2 were given
+2024-10-31 11:29:23,379 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 11:29:24,120 - __main__ - ERROR - Error in analysis for year 2023: TransactionAnalyzer.currency_forex_analysis() takes 1 positional argument but 2 were given
+2024-10-31 11:31:05,372 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 11:31:11,453 - __main__ - ERROR - Error in analysis for year 2023: keys must be str, int, float, bool or None, not tuple
+2024-10-31 11:52:38,205 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 11:52:40,014 - __main__ - ERROR - Error in analysis for year 2023: keys must be str, int, float, bool or None, not tuple
+2024-10-31 11:56:35,917 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 11:56:37,691 - __main__ - INFO - Analysis results for 2023 saved successfully
+2024-10-31 11:56:37,850 - __main__ - ERROR - Error sending email report for 2023: [Errno 11001] getaddrinfo failed
+2024-10-31 11:56:37,850 - __main__ - ERROR - Error in analysis for year 2023: [Errno 11001] getaddrinfo failed
+2024-10-31 11:58:06,677 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 11:58:08,502 - __main__ - INFO - Analysis results for 2023 saved successfully
+2024-10-31 11:58:08,503 - __main__ - INFO - Analysis for year 2023 completed successfully
+2024-10-31 12:20:29,928 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 12:20:32,636 - __main__ - INFO - Analysis results for 2023 saved successfully
+2024-10-31 12:20:32,636 - __main__ - INFO - Analysis for year 2023 completed successfully
+2024-10-31 12:23:25,922 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 12:23:25,925 - __main__ - ERROR - Error loading data for year 2023: [Errno 2] No such file or directory: 'data/transactions_2023.csv'
+2024-10-31 12:23:25,926 - __main__ - ERROR - Error in analysis for year 2023: [Errno 2] No such file or directory: 'data/transactions_2023.csv'
+2024-10-31 12:26:08,758 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 12:26:10,641 - __main__ - INFO - Analysis results for 2023 saved successfully
+2024-10-31 12:26:10,641 - __main__ - INFO - Analysis for year 2023 completed successfully
+2024-10-31 12:26:10,647 - __main__ - INFO - Starting analysis for year 2024
+2024-10-31 12:26:14,324 - __main__ - INFO - Analysis results for 2024 saved successfully
+2024-10-31 12:26:14,325 - __main__ - INFO - Analysis for year 2024 completed successfully
+2024-10-31 12:27:35,422 - __main__ - INFO - Starting analysis for year 2022
+2024-10-31 12:27:35,714 - __main__ - ERROR - Error loading data for year 2022: Missing required columns: ['AccountType']
+2024-10-31 12:27:35,715 - __main__ - ERROR - Error in analysis for year 2022: Missing required columns: ['AccountType']
+2024-10-31 12:28:58,214 - __main__ - INFO - Starting analysis for year 2023
+2024-10-31 12:28:59,990 - __main__ - INFO - Analysis results for 2023 saved successfully
+2024-10-31 12:28:59,990 - __main__ - INFO - Analysis for year 2023 completed successfully

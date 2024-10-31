@@ -1,0 +1,19 @@
+data_source:
+  type: csv
+  file_pattern: "data/transactions_{year}.csv"
+  
+output:
+  directory: "analysis_output"
+  
+logging:
+  file_path: "logs/analysis.log"
+  level: INFO
+  
+email:
+  enabled: true
+  server: "smtp.company.com"
+  port: 587
+  username: "analyst@company.com"
+  password: "your_password"
+  from: "analyst@company.com"
+  to: "manager@company.com"

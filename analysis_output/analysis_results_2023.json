@@ -1,0 +1,156 @@
+{
+    "currency_forex_analysis": {
+        "currency_stats": {
+            "volume_by_currency": {
+                "EUR": 4,
+                "GBP": 9,
+                "UGX": 42571,
+                "USD": 226
+            },
+            "value_by_currency": {
+                "EUR": 0.0,
+                "GBP": 7512.0,
+                "UGX": 19690233518.0,
+                "USD": 167456.0
+            },
+            "avg_transaction_by_currency": {
+                "EUR": 0.0,
+                "GBP": 834.6666666666666,
+                "UGX": 462526.92015691433,
+                "USD": 740.9557522123894
+            }
+        },
+        "forex_stats": {
+            "avg_forex_rate": {
+                "EUR": NaN,
+                "GBP": 0.728738143870986,
+                "UGX": 3648.8,
+                "USD": 0.00026080052500125
+            },
+            "forex_volatility": {
+                "EUR": NaN,
+                "GBP": 0.013739222760244068,
+                "UGX": 57.52394971156942,
+                "USD": 4.808704557102705e-06
+            }
+        },
+        "forex_impact": {
+            "total_value_original": 19690408486.0,
+            "total_value_converted": 1372020343654.731,
+            "forex_impact_percentage": 6867.962826318437
+        }
+    },
+    "account_type_analysis": {
+        "transaction_counts": {
+            "0": 29185,
+            "1": 13625
+        },
+        "total_value": {
+            "0": 17599256377.0,
+            "1": 2091152109.0
+        },
+        "avg_transaction_value": {
+            "0": 603024.0321055336,
+            "1": 153479.05387155962
+        },
+        "success_rate": {
+            "0": 86.24978584889497,
+            "1": 90.91376146788991
+        },
+        "avg_monthly_growth": {
+            "0": 10.021254568468548,
+            "1": 8.192138552068734
+        }
+    },
+    "risk_patterns": {
+        "amount_outliers": {
+            "count": 5928,
+            "percentage": 13.847231955150665,
+            "total_value": 15186740855.0
+        },
+        "unusual_frequency": {
+            "threshold": 1.0,
+            "instances": 0,
+            "customers_involved": 0
+        }
+    },
+    "operational_efficiency": {
+        "success_rate_by_type": {
+            "AIRTIME": 67.15421303656598,
+            "B2W": 91.66801096951122,
+            "INTERNAL": 94.05819829238543,
+            "OUTWARD": 84.57997698504028,
+            "OWN": 91.37729223566133,
+            "W2B": 74.44717444717445
+        },
+        "peak_hours": {
+            "INTERNAL": "14",
+            "B2W": "18",
+            "OWN": "12",
+            "W2B": "14",
+            "AIRTIME": "11",
+            "OUTWARD": "11"
+        },
+        "failure_patterns": {
+            "AIRTIME_FAILED": 1021,
+            "AIRTIME_RECORDED": 12,
+            "B2W_FAILED": 2061,
+            "B2W_RECORDED": 5,
+            "INTERNAL_FAILED": 221,
+            "INTERNAL_RECORDED": 120,
+            "OUTWARD_FAILED": 134,
+            "OWN_FAILED": 219,
+            "OWN_RECORDED": 2,
+            "W2B_FAILED": 1439,
+            "W2B_PENDING_AUTHORISATION": 16,
+            "W2B_RECORDED": 1
+        }
+    },
+    "weekend_comparison": {
+        "transaction_volume": {
+            "weekend_avg": 0.8324456902592853,
+            "weekday_avg": 1.067021723896286
+        },
+        "transaction_value": {
+            "weekend": {
+                "sum": 3148929234.0,
+                "mean": 309264.3129051267
+            },
+            "weekday": {
+                "sum": 16541479252.0,
+                "mean": 506971.90302807407
+            }
+        },
+        "success_rate": {
+            "weekend": 87.47790218031821,
+            "weekday": 87.81414735809734
+        }
+    },
+    "month_end_patterns": {
+        "volume_comparison": {
+            "month_end": "3189",
+            "regular_days": "39621",
+            "volume_ratio": 0.08048762020140834
+        },
+        "value_comparison": {
+            "month_end": {
+                "sum": 1222304064.0,
+                "mean": 383287.57102539984,
+                "std": 1030236.8921538814
+            },
+            "regular_days": {
+                "sum": 18468104422.0,
+                "mean": 466119.08891749324,
+                "std": 1470032.5465788827
+            }
+        },
+        "success_rate": {
+            "month_end": 91.1884603323926,
+            "regular_days": 87.45614699275637
+        }
+    },
+    "total_transactions": 42810,
+    "total_value": 19690408486.0,
+    "success_rate": 0.8773417425835085,
+    "analysis_timestamp": "2024-10-31T12:28:59.077496"
+}
